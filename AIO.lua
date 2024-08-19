@@ -120,12 +120,12 @@ local function teleportToBamboo(bambooName)
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
         wait(1)
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-        wait(0.5)
+        wait(3)
         -- Simulate holding key "E" for 7 seconds
         game:GetService("VirtualInputManager"):SendKeyEvent(true, "E", false, game)
         wait(7)  -- Hold "E" for 7 seconds
         game:GetService("VirtualInputManager"):SendKeyEvent(false, "E", false, game)
-        wait(1)
+        wait(0.3)
     else
         warn("Bamboo not found: " .. bambooName)
     end
@@ -213,3 +213,4 @@ end
 boxContainer:AddButton("Claim Box", claimBox)
 boxContainer:AddButton("Buy Limited Box", buyLimitedBox)
 boxContainer:AddButton("Buy Minigame Box", buyMinigameBox)
+
