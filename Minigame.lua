@@ -62,5 +62,43 @@ local function startAutoMinigame()
     end
 end
 
+-- Box Functions Container
+local boxContainer = library:CreateWindow({
+    text = "Boxes"
+})
+
 -- Button to start the auto minigame process
 example:AddButton("Start Auto Minigame", startAutoMinigame)
+
+-- Box-related Functions
+
+-- Function to claim the box
+local function claimBox()
+    local args = {
+        [1] = "Claim"
+    }
+    game:GetService("ReplicatedStorage").NetworkContainer.RemoteEvents.Box:FireServer(unpack(args))
+end
+
+-- Function to buy the limited box
+local function buyLimitedBox()
+    local args = {
+        [1] = "Buy",
+        [2] = "Limited Box"
+    }
+    game:GetService("ReplicatedStorage").NetworkContainer.RemoteEvents.Box:FireServer(unpack(args))
+end
+
+-- Function to buy the minigame box
+local function buyMinigameBox()
+    local args = {
+        [1] = "Buy",
+        [2] = "Minigame Box"
+    }
+    game:GetService("ReplicatedStorage").NetworkContainer.RemoteEvents.Box:FireServer(unpack(args))
+end
+
+-- Adding buttons to the boxContainer
+boxContainer:AddButton("Claim Box", claimBox)
+boxContainer:AddButton("Buy Limited Box", buyLimitedBox)
+boxContainer:AddButton("Buy Minigame Box", buyMinigameBox)
