@@ -1,4 +1,4 @@
-warn("Anti afk running")
+warn("Anti afk running")More actions
 game:GetService("Players").LocalPlayer.Idled:connect(function()
 warn("Anti afk ran")
 game:GetService("VirtualUser"):CaptureController()
@@ -18,108 +18,6 @@ return;
 	return namecall(self, ...) 
 end)
 end
-
--- Tween Configuration Variables
-getfenv().tweenSpeed = 300 -- Default tween speed
-getfenv().tweenEasing = Enum.EasingStyle.Linear -- Default easing style
-getfenv().tweenDirection = Enum.EasingDirection.InOut -- Default easing direction
-
--- Reusable Smooth Tween Function
-local function smoothTweenVehicle(vehicle, targetCFrame, customSpeed, customEasing, customDirection, onComplete)
-    if not vehicle or not vehicle.PrimaryPart then return end
-    
-    local speed = customSpeed or getfenv().tweenSpeed or 300
-    local easing = customEasing or getfenv().tweenEasing or Enum.EasingStyle.Linear
-    local direction = customDirection or getfenv().tweenDirection or Enum.EasingDirection.InOut
-    
-    local distance = (vehicle.PrimaryPart.Position - targetCFrame.Position).magnitude
-    local duration = math.max(distance / speed, 0.1) -- Minimum duration of 0.1 seconds
-    
-    local TweenService = game:GetService("TweenService")
-    local TweenInfo = TweenInfo.new(duration, easing, direction, 0, false, 0)
-    
-    local TweenValue = Instance.new("CFrameValue")
-    TweenValue.Value = vehicle:GetPrimaryPartCFrame()
-    
-    TweenValue.Changed:Connect(function()
-        vehicle:PivotTo(TweenValue.Value)
-        -- Maintain realistic velocity during tween if enabled
-        if getfenv().realisticPhysics and vehicle.PrimaryPart then
-            local velocityMultiplier = math.min(speed * 0.3, 500) -- Cap velocity for realism
-            vehicle.PrimaryPart.Velocity = vehicle.PrimaryPart.CFrame.LookVector * velocityMultiplier
-            -- Add slight downward force for ground contact simulation
-            vehicle.PrimaryPart.Velocity = vehicle.PrimaryPart.Velocity + Vector3.new(0, -50, 0)
-        elseif vehicle.PrimaryPart then
-            -- Basic velocity maintenance for smooth movement
-            vehicle.PrimaryPart.Velocity = vehicle.PrimaryPart.CFrame.LookVector * (speed * 0.2)
-        end
-    end)
-    
-    local tween = TweenService:Create(TweenValue, TweenInfo, {Value = targetCFrame})
-    tween:Play()
-    
-    if onComplete then
-        tween.Completed:Connect(onComplete)
-    end
-    
-    return tween
-end
-
--- Enhanced Smooth Tween Function for Multiple Vehicles (like car + trailer)
-local function smoothTweenMultipleVehicles(vehicles, targetCFrames, customSpeed, onComplete)
-    local tweens = {}
-    local completedCount = 0
-    
-    for i, vehicle in pairs(vehicles) do
-        if vehicle and targetCFrames[i] then
-            local tween = smoothTweenVehicle(vehicle, targetCFrames[i], customSpeed)
-            table.insert(tweens, tween)
-            
-            tween.Completed:Connect(function()
-                completedCount = completedCount + 1
-                if completedCount >= #vehicles and onComplete then
-                    onComplete()
-                end
-            end)
-        end
-    end
-    
-    return tweens
-end
-
--- Global tween storage for cleanup
-getfenv().activeTweens = {}
-
--- Function to cancel all active tweens
-local function cancelAllTweens()
-    for i, tween in pairs(getfenv().activeTweens) do
-        if tween and tween.PlaybackState == Enum.PlaybackState.Playing then
-            tween:Cancel()
-        end
-    end
-    getfenv().activeTweens = {}
-    print("All active tweens cancelled")
-end
-
--- Enhanced tween tracking
-local originalSmoothTweenVehicle = smoothTweenVehicle
-smoothTweenVehicle = function(vehicle, targetCFrame, customSpeed, customEasing, customDirection, onComplete)
-    local tween = originalSmoothTweenVehicle(vehicle, targetCFrame, customSpeed, customEasing, customDirection, onComplete)
-    if tween then
-        table.insert(getfenv().activeTweens, tween)
-        -- Clean up completed tweens
-        tween.Completed:Connect(function()
-            for i, activeTween in pairs(getfenv().activeTweens) do
-                if activeTween == tween then
-                    table.remove(getfenv().activeTweens, i)
-                    break
-                end
-            end
-        end)
-    end
-    return tween
-end
-
 local function getJob(type,type2)
    local job = nil
    for i,v in pairs(workspace.Jobs:GetDescendants()) do
@@ -155,7 +53,7 @@ example:AddToggle("Auto Farm [Drive]", function(state)
          drivebypasspart.Position = chr.HumanoidRootPart.Position+Vector3.new(2500,5000,2500)
          drivebypasspart.Size = Vector3.new(10000,10,10000)
          drivebypasspart.Anchored = true
-         smoothTweenVehicle(car, drivebypasspart.CFrame+Vector3.new(0,10,0))
+         car:PivotTo(drivebypasspart.CFrame+Vector3.new(0,10,0))
          wait(1)
           getfenv().new = Instance.new("Part",workspace)
           getfenv().new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
@@ -167,7 +65,7 @@ example:AddToggle("Auto Farm [Drive]", function(state)
    local chr = plr.Character
    local car = chr.Humanoid.SeatPart.Parent.Parent
    local carp = car.PrimaryPart
-   smoothTweenVehicle(car, getfenv().new.CFrame+Vector3.new(0,10,0))
+   car:PivotTo(getfenv().new.CFrame+Vector3.new(0,10,0))
    task.wait(0.5)
    carp.AssemblyLinearVelocity = carp.CFrame.LookVector*600
    end
@@ -185,7 +83,7 @@ example:AddToggle("Auto Farm [Drive]", function(state)
                drivebypasspart.Position = chr.HumanoidRootPart.Position+Vector3.new(2500,5000,2500)
                drivebypasspart.Size = Vector3.new(10000,10,10000)
                drivebypasspart.Anchored = true
-               smoothTweenVehicle(car, drivebypasspart.CFrame+Vector3.new(0,10,0))
+               car:PivotTo(drivebypasspart.CFrame+Vector3.new(0,10,0))
                wait(1)
                getfenv().new = Instance.new("Part",workspace)
                getfenv().new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
@@ -196,7 +94,7 @@ example:AddToggle("Auto Farm [Drive]", function(state)
                local chr = plr.Character
                local car = chr.Humanoid.SeatPart.Parent.Parent
                local carp = car.PrimaryPart
-               smoothTweenVehicle(car, getfenv().new.CFrame*CFrame.new(0,15,500), nil, Enum.EasingStyle.Quad)
+               car:PivotTo(getfenv().new.CFrame*CFrame.new(0,15,500))
                carp.Velocity=carp.CFrame.LookVector*700
                carp.Velocity = carp.Velocity+Vector3.new(0,100,0)
                task.wait(2)
@@ -234,7 +132,7 @@ if not getfenv().new then
          drivebypasspart.Position = chr.HumanoidRootPart.Position+Vector3.new(2500,5000,2500)
          drivebypasspart.Size = Vector3.new(10000,10,10000)
          drivebypasspart.Anchored = true
-         smoothTweenVehicle(car, drivebypasspart.CFrame+Vector3.new(0,10,0))
+         car:PivotTo(drivebypasspart.CFrame+Vector3.new(0,10,0))
    wait(1)
    getfenv().new = Instance.new("Part",workspace)
    getfenv().new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
@@ -261,7 +159,7 @@ end
 if type(num) == "number" then
    val = num
 end
-smoothTweenVehicle(car, getfenv().new.CFrame+Vector3.new(0,5,0), nil, Enum.EasingStyle.Sine)
+car:PivotTo(getfenv().new.CFrame+Vector3.new(0,5,0))
 getfenv().new.Velocity = chr.HumanoidRootPart.CFrame.LookVector*1500
 task.wait(0.01)
 end
@@ -400,25 +298,18 @@ end
 elseif game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == true then
 for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
    if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-      -- Replace teleportation with smooth tween for delivery positioning
-      smoothTweenMultipleVehicles(
-         {v.Parent, v.Parent.Trailer}, 
-         {getZone().PrimaryPart.CFrame*CFrame.new(0,5,-120), getZone().PrimaryPart.CFrame*CFrame.new(0,5,50)}, 
-         200
-      )
+      v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,-120))
+      v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,50))
       wait(5)
 repeat task.wait()
    pcall(function()
-   -- Replace teleportation with smooth tween for final delivery positioning
-   smoothTweenMultipleVehicles(
-      {v.Parent, v.Parent.Trailer}, 
-      {getZone().PrimaryPart.CFrame*CFrame.new(0,5,-20), getZone().PrimaryPart.CFrame*CFrame.new(0,5,0)}, 
-      100
-   )
+   v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,-20))
+v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,0))
    end)
     until not v.Parent:FindFirstChild("Trailer") or getfenv().test == false
 game:GetService("ReplicatedStorage").Systems.Jobs.CashBankedEarnings:FireServer()
 task.wait()
+end
 end
 end
 end
@@ -506,12 +397,8 @@ pcall(function()
       elseif getfenv().methodt == "Tweening" then
          for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
             if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-               -- Replace teleportation with smooth tween for trucking elevation
-               smoothTweenMultipleVehicles(
-                  {v.Parent, v.Parent.Trailer}, 
-                  {v.Parent.PrimaryPart.CFrame+Vector3.new(0,500,0), v.Parent.PrimaryPart.CFrame*CFrame.new(0,500,100)}, 
-                  400
-               )
+               v.Parent:PivotTo(v.Parent.PrimaryPart.CFrame+Vector3.new(0,500,0))
+               v.Parent.Trailer:PivotTo(v.Parent.PrimaryPart.CFrame*CFrame.new(0,500,100))
          local TweenService = game:GetService("TweenService")
          local TweenInfoToUse = TweenInfo.new(dist/400, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
          
@@ -537,12 +424,8 @@ pcall(function()
          elseif getfenv().methodt == "Tweening" then
             for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
                if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-                  -- Replace teleportation with smooth tween for trucking elevation (short distance)
-                  smoothTweenMultipleVehicles(
-                     {v.Parent, v.Parent.Trailer}, 
-                     {v.Parent.PrimaryPart.CFrame+Vector3.new(0,500,0), v.Parent.PrimaryPart.CFrame*CFrame.new(0,500,100)}, 
-                     300
-                  )
+                  v.Parent:PivotTo(v.Parent.PrimaryPart.CFrame+Vector3.new(0,500,0))
+                  v.Parent.Trailer:PivotTo(v.Parent.PrimaryPart.CFrame*CFrame.new(0,500,100))
                   local TweenService = game:GetService("TweenService")
                   local TweenInfoToUse = TweenInfo.new(7, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
                   
@@ -565,21 +448,13 @@ pcall(function()
 elseif game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == true then
 for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
    if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-      -- Replace teleportation with smooth tween for trucking delivery positioning
-      smoothTweenMultipleVehicles(
-         {v.Parent, v.Parent.Trailer}, 
-         {getZone().PrimaryPart.CFrame*CFrame.new(0,5,60), getZone().PrimaryPart.CFrame*CFrame.new(0,5,100)}, 
-         250
-      )
+      v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,60))
+      v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,100))
       wait(5)
 repeat task.wait()
    pcall(function()
-   -- Replace teleportation with smooth tween for final trucking delivery positioning
-   smoothTweenMultipleVehicles(
-      {v.Parent, v.Parent.Trailer}, 
-      {getZone().PrimaryPart.CFrame*CFrame.new(0,5,-30), getZone().PrimaryPart.CFrame*CFrame.new(0,5,0)}, 
-      150
-   )
+   v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,-30))
+v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,0))
    end)
     until not v.Parent:FindFirstChild("Trailer") or getfenv().test2 == false
 game:GetService("ReplicatedStorage").Systems.Jobs.CashBankedEarnings:FireServer()
@@ -776,43 +651,4 @@ example:AddToggle("Auto Finish Race", function(state)
    carp.Velocity = Vector3.new(0,0,0)
 end
    end
-end)
-
--- Add Tween Configuration UI
-example:AddLabel("=== Tween Movement Settings ===", function(object, focus) end)
-
-example:AddBox("Tween Speed", function(object, focus)
-    if focus then
-        local speed = tonumber(object.Text)
-        if speed and speed > 0 then
-            getfenv().tweenSpeed = speed
-            print("Tween speed set to: " .. speed)
-        else
-            print("Invalid speed value! Using default: 300")
-        end
-    end
-end)
-
-example:AddDropdown({"Linear", "Sine", "Back", "Quad", "Quart", "Quint", "Bounce", "Elastic"}, function(state)
-    local easingMap = {
-        ["Linear"] = Enum.EasingStyle.Linear,
-        ["Sine"] = Enum.EasingStyle.Sine,
-        ["Back"] = Enum.EasingStyle.Back,
-        ["Quad"] = Enum.EasingStyle.Quad,
-        ["Quart"] = Enum.EasingStyle.Quart,
-        ["Quint"] = Enum.EasingStyle.Quint,
-        ["Bounce"] = Enum.EasingStyle.Bounce,
-        ["Elastic"] = Enum.EasingStyle.Elastic
-    }
-    getfenv().tweenEasing = easingMap[state] or Enum.EasingStyle.Linear
-    print("Tween easing set to: " .. state)
-end)
-
-example:AddToggle("Enable Realistic Physics", function(state)
-    getfenv().realisticPhysics = state
-    print("Realistic physics: " .. (state and "Enabled" or "Disabled"))
-end)
-
-example:AddButton("Cancel All Tweens", function()
-    cancelAllTweens()
 end)
