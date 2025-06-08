@@ -1,10 +1,9 @@
-warn("Anti afk running")More actions
+warn("Anti afk running")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
 warn("Anti afk ran")
 game:GetService("VirtualUser"):CaptureController()
 game:GetService("VirtualUser"):ClickButton2(Vector2.new())
 end)
-if getrawmetatable = nil then
 local mt = getrawmetatable(game);
 setreadonly(mt,false)
 local namecall = mt.__namecall
@@ -12,64 +11,41 @@ mt.__namecall = newcclosure(function(self, ...)
 	local Method = getnamecallmethod()
 	local Args = {...}
 
-	if Method == 'FireServer' and self.Name == "TrackOffroadTimer" or Method == 'FireServer' and self.Name == "Report" or Method == 'InvokeServer' and self.Name == "QuitJob" and Args[1] == true or Method == 'InvokeServer' and self.Name == "QuitJob" and Args[1] == "teleport" then
+	if Method == 'FireServer' and self.Name == "TrackOffroadTimer" then
 return;
 	end
 	return namecall(self, ...) 
 end)
-end
-local function getJob(type,type2)
-   local job = nil
-   for i,v in pairs(workspace.Jobs:GetDescendants()) do
-   if v.Name == "Config" and v:GetAttribute("JobType") == type  and v:GetAttribute("WeightClass") == type2 then
-   job = v.Parent.StartPoints
-   end
-   end
-   return job
-   end
-   local function getZone()
-      local zone = nil
-      for i,v in pairs(workspace:GetChildren()) do
-      if v.ClassName == "Model" and v.PrimaryPart = nil and v.PrimaryPart.BrickColor == BrickColor.new("Lime green") then
-      zone = v
-      end
-      end
-      return zone
-      end
+
 getfenv().grav = workspace.Gravity
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/main/ui%20libs2"))()
 local example = library:CreateWindow({
   text = "Drive World"
 })
 example:AddToggle("Auto Farm [Drive]", function(state)
-   getfenv().drive = (state and true or false)
-   while getfenv().drive do
-      local plr = game.Players.LocalPlayer
-   local chr = plr.Character
-   local car = chr.Humanoid.SeatPart.Parent.Parent
-   local carp = car.PrimaryPart
-      if  getfenv().new == nil then
-         local drivebypasspart = Instance.new("Part",workspace)
-         drivebypasspart.Position = chr.HumanoidRootPart.Position+Vector3.new(2500,5000,2500)
-         drivebypasspart.Size = Vector3.new(10000,10,10000)
-         drivebypasspart.Anchored = true
-         car:PivotTo(drivebypasspart.CFrame+Vector3.new(0,10,0))
-         wait(1)
-          getfenv().new = Instance.new("Part",workspace)
-          getfenv().new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
-          getfenv().new.Anchored = true
-          getfenv().new.Size = Vector3.new(10000,10,10000)
-         end
-         
-   local plr = game.Players.LocalPlayer
-   local chr = plr.Character
-   local car = chr.Humanoid.SeatPart.Parent.Parent
-   local carp = car.PrimaryPart
-   car:PivotTo(getfenv().new.CFrame+Vector3.new(0,10,0))
-   task.wait(0.5)
-   carp.AssemblyLinearVelocity = carp.CFrame.LookVector*600
-   end
-   end)
+    getfenv().drive = (state and true or false)
+    while getfenv().drive do
+       local plr = game.Players.LocalPlayer
+    local chr = plr.Character
+    local car = chr.Humanoid.SeatPart.Parent.Parent
+    local carp = car.PrimaryPart
+       if not workspace:FindFirstChild("carautopart") then
+          local new = Instance.new("Part",workspace)
+          new.Name = "carautopart"
+          new.Position = chr.HumanoidRootPart.Position+Vector3.new(-1157.3995361328125, 7.028332710266113, 942.1002197265625)
+          new.Anchored = true
+          new.Size = Vector3.new(10000,10,10000)
+          end
+          workspace:FindFirstChild("carautopart").Velocity = Vector3.new(0,0,0)
+    local plr = game.Players.LocalPlayer
+    local chr = plr.Character
+    local car = chr.Humanoid.SeatPart.Parent.Parent
+    local carp = car.PrimaryPart
+    car:PivotTo(workspace:FindFirstChild("carautopart").CFrame+Vector3.new(0,5,0))
+    task.wait(10)
+    carp.Velocity = carp.CFrame.LookVector*600
+    end
+    end)
    example:AddToggle("Auto Farm [Air]", function(state)
       getfenv().air = (state and true or false)
       while getfenv().air do
@@ -78,23 +54,19 @@ example:AddToggle("Auto Farm [Drive]", function(state)
          local chr = plr.Character
          local car = chr.Humanoid.SeatPart.Parent.Parent
          local carp = car.PrimaryPart
-            if not getfenv().new then
-               local drivebypasspart = Instance.new("Part",workspace)
-               drivebypasspart.Position = chr.HumanoidRootPart.Position+Vector3.new(2500,5000,2500)
-               drivebypasspart.Size = Vector3.new(10000,10,10000)
-               drivebypasspart.Anchored = true
-               car:PivotTo(drivebypasspart.CFrame+Vector3.new(0,10,0))
-               wait(1)
-               getfenv().new = Instance.new("Part",workspace)
-               getfenv().new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
-               getfenv().new.Anchored = true
-               getfenv().new.Size = Vector3.new(10000,10,10000)
+            if not workspace:FindFirstChild("carautopart") then
+               local new = Instance.new("Part",workspace)
+               new.Name = "carautopart"
+               new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
+               new.Anchored = true
+               new.Size = Vector3.new(10000,10,10000)
                end
+               workspace:FindFirstChild("carautopart").Velocity = Vector3.new(0,0,0)
                local plr = game.Players.LocalPlayer
                local chr = plr.Character
                local car = chr.Humanoid.SeatPart.Parent.Parent
                local carp = car.PrimaryPart
-               car:PivotTo(getfenv().new.CFrame*CFrame.new(0,15,500))
+               car:PivotTo(workspace:FindFirstChild("carautopart").CFrame*CFrame.new(0,15,500))
                carp.Velocity=carp.CFrame.LookVector*700
                carp.Velocity = carp.Velocity+Vector3.new(0,100,0)
                task.wait(2)
@@ -119,6 +91,17 @@ example:AddToggle("Auto Farm [Drive]", function(state)
            
       end
       end)
+-- Auto Nitrous toggle
+example:AddToggle("Auto Nitrous", function(state)
+   getfenv().autonitrous = (state and true or false)
+   while getfenv().autonitrous do
+       local args = {
+           [1] = 2.0208334662020206
+       }
+       game:GetService("ReplicatedStorage"):WaitForChild("Systems"):WaitForChild("CarInteraction"):WaitForChild("TrackNitrousTime"):FireServer(unpack(args))
+       wait(1) -- Loop every 1 second
+   end
+end)
 example:AddToggle("Auto Farm [Drift]", function(state)
    getfenv().autodrift = (state and true or false)
 while getfenv().autodrift do
@@ -127,17 +110,12 @@ local plr = game.Players.LocalPlayer
 local chr = plr.Character
 local car = chr.Humanoid.SeatPart.Parent.Parent
 local carp = car.PrimaryPart
-if not getfenv().new then
-   local drivebypasspart = Instance.new("Part",workspace)
-         drivebypasspart.Position = chr.HumanoidRootPart.Position+Vector3.new(2500,5000,2500)
-         drivebypasspart.Size = Vector3.new(10000,10,10000)
-         drivebypasspart.Anchored = true
-         car:PivotTo(drivebypasspart.CFrame+Vector3.new(0,10,0))
-   wait(1)
-   getfenv().new = Instance.new("Part",workspace)
-   getfenv().new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
-   getfenv().new.Anchored = true
-   getfenv().new.Size = Vector3.new(10000,10,10000)
+if not workspace:FindFirstChild("carautopart") then
+local new = Instance.new("Part",workspace)
+new.Name = "carautopart"
+new.Position = chr.HumanoidRootPart.Position+Vector3.new(0,5000,0)
+new.Anchored = true
+new.Size = Vector3.new(10000,10,10000)
 end
    pcall(function()
    local text = game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Score.TotalScore.Text:split("$")
@@ -159,9 +137,9 @@ end
 if type(num) == "number" then
    val = num
 end
-car:PivotTo(getfenv().new.CFrame+Vector3.new(0,5,0))
-getfenv().new.Velocity = chr.HumanoidRootPart.CFrame.LookVector*1500
-task.wait(0.01)
+car:PivotTo(workspace:FindFirstChild("carautopart").CFrame+Vector3.new(0,5,0))
+workspace:FindFirstChild("carautopart").Velocity = chr.HumanoidRootPart.CFrame.LookVector*1500
+task.wait(0.1)
 end
 end)
 local example = library:CreateWindow({
@@ -176,7 +154,7 @@ local example = library:CreateWindow({
 end)
 example:AddLabel("Select Delivering Method", function(object, focus)
 end)
-example:AddDropdown({"Tweening","Teleport"},function(state)
+example:AddDropdown({"Teleport","Tweening"},function(state)
    print(state)
 getfenv().methodt = state
  end)
@@ -188,7 +166,7 @@ if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == 
 	local chosenone = nil
 	local smaller = 0
 	repeat wait()
-	for i2,v2 in pairs(getJob("TrailerDelivery","SmallMedium"):GetChildren()) do
+	for i2,v2 in pairs(game:GetService("Workspace").Jobs.TrailerDelivery.StartPoints:GetChildren()) do
 	  if chosenone == nil then
 	  local p,call =	pcall(function()
 	local payment = 0
@@ -214,8 +192,8 @@ if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == 
 	end
   end
 	end
-until chosenone = nil or getfenv().test == false
-game:GetService("ReplicatedStorage").Systems.Jobs.StartJob:InvokeServer(getJob("TrailerDelivery","SmallMedium").Parent, chosenone)
+until chosenone ~= nil or getfenv().test == false
+game:GetService("ReplicatedStorage").Systems.Jobs.StartJob:InvokeServer(workspace.Jobs.TrailerDelivery, chosenone)
 repeat  wait()
    print("waiting for trailer")
 until game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Parent:FindFirstChild("Trailer") or getfenv().test == false
@@ -228,9 +206,9 @@ if failnum > 100 then
 game:GetService("ReplicatedStorage").Systems.Jobs.QuitJob:InvokeServer()
 task.wait()
 end
-until getZone() or getfenv().test == false or failnum > 100
-if getZone() then
-   if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-getZone().PrimaryPart.Position).magnitude < getfenv().mdistance*3.571 then
+until game:GetService("Workspace"):FindFirstChild("CompletionRegion") or getfenv().test == false or failnum > 100
+if game:GetService("Workspace"):FindFirstChild("CompletionRegion") then
+   if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-game:GetService("Workspace").CompletionRegion.Primary.Position).magnitude < getfenv().mdistance*3.571 then
       game:GetService("ReplicatedStorage").Systems.Jobs.QuitJob:InvokeServer()
 task.wait()
    end
@@ -241,28 +219,27 @@ pcall(function()
    game.Players.LocalPlayer.Character.Head.Anchored = false
    end)
 wait()
-if getZone() then
-local dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-getZone().PrimaryPart.Position).magnitude
-if tonumber(dist/400) > 7 then
+if game:GetService("Workspace"):FindFirstChild("CompletionRegion") then
+local dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-game:GetService("Workspace").CompletionRegion.Primary.Position).magnitude
+if tonumber(dist/500) > 7 then
    print("Delivery Distance:"..tonumber(dist/3.571).." meters away")
-print("Delivery ETA:"..tonumber(dist/400).." seconds")
+print("Delivery ETA:"..tonumber(dist/500).." seconds")
 if getfenv().methodt == "Teleport" then
-task.wait(dist/400)
+task.wait(dist/500)
 elseif getfenv().methodt == "Tweening" then
    for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
       if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
    local TweenService = game:GetService("TweenService")
-   local TweenInfoToUse = TweenInfo.new(dist/400, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+   local TweenInfoToUse = TweenInfo.new(dist/500, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0)
    
    local TweenValue = Instance.new("CFrameValue")
    TweenValue.Value = v.Parent:GetPrimaryPartCFrame()
             
    TweenValue.Changed:Connect(function()
-            v.Parent:PivotTo(TweenValue.Value)
-      v.Parent.PrimaryPart.Velocity = Vector3.new(0,0,0)
+      v.Parent:SetPrimaryPartCFrame(TweenValue.Value)
    end)
             
-   local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=getZone().PrimaryPart.CFrame*CFrame.new(0,5,100)})
+   local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=game:GetService("Workspace").CompletionRegion.Primary.CFrame})
    OnTween:Play()
     OnTween.Completed:Wait()
    end
@@ -277,17 +254,16 @@ if getfenv().methodt == "Teleport" then
       for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
          if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
       local TweenService = game:GetService("TweenService")
-      local TweenInfoToUse = TweenInfo.new(7, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+      local TweenInfoToUse = TweenInfo.new(7, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0)
       
       local TweenValue = Instance.new("CFrameValue")
       TweenValue.Value = v.Parent:GetPrimaryPartCFrame()
                
       TweenValue.Changed:Connect(function()
-               v.Parent:PivotTo(TweenValue.Value)
-      v.Parent.PrimaryPart.Velocity = Vector3.new(0,0,0)
+         v.Parent:SetPrimaryPartCFrame(TweenValue.Value)
       end)
                
-      local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=getZone().PrimaryPart.CFrame*CFrame.new(0,5,100)})
+      local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=game:GetService("Workspace").CompletionRegion.Primary.CFrame})
       OnTween:Play()
        OnTween.Completed:Wait()
       end
@@ -298,13 +274,10 @@ end
 elseif game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == true then
 for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
    if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-      v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,-120))
-      v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,50))
-      wait(5)
 repeat task.wait()
    pcall(function()
-   v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,-20))
-v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,0))
+   v.Parent:PivotTo(game:GetService("Workspace").CompletionRegion.Primary.CFrame*CFrame.new(0,5,-20))
+v.Parent.Trailer:PivotTo(game:GetService("Workspace").CompletionRegion.Primary.CFrame*CFrame.new(0,5,0))
    end)
     until not v.Parent:FindFirstChild("Trailer") or getfenv().test == false
 game:GetService("ReplicatedStorage").Systems.Jobs.CashBankedEarnings:FireServer()
@@ -317,23 +290,12 @@ end)
 example:AddToggle("Auto Delivery[Trucking]", function(state)
 getfenv().test2 = (state and true or false)
 while getfenv().test2 do
-   local plr = game.Players.LocalPlayer
-   local cash = game:GetService("ReplicatedStorage").PlayerData[plr.Name].Cash
-print(cash)
-local plr = game.Players.LocalPlayer
-local chr = plr.Character
-local car = chr.Humanoid.SeatPart.Parent.Parent
-for i,v in pairs(car:GetDescendants()) do
-    if v.Name == "TouchInterest" then
-        v:Destroy()
-    end
-    end
    if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == false then
-      local num = math.random(1,#getJob("TrailerDelivery","Large"):GetChildren())
+      local num = math.random(1,#workspace.Jobs.Trucking.StartPoints:GetChildren())
 	  local chosenone = nil
 	  local smaller = 0
 	  repeat wait()
-	  for i2,v2 in pairs(getJob("TrailerDelivery","Large"):GetChildren()) do
+	  for i2,v2 in pairs(game:GetService("Workspace").Jobs.Trucking.StartPoints:GetChildren()) do
 		if chosenone == nil then
 		local p,call =	pcall(function()
 	  local payment = 0
@@ -359,8 +321,8 @@ for i,v in pairs(car:GetDescendants()) do
 	  end
 	end
 	  end
-	until chosenone = nil or getfenv().test2 == false
-  game:GetService("ReplicatedStorage").Systems.Jobs.StartJob:InvokeServer(getJob("TrailerDelivery","Large").Parent, chosenone)
+	until chosenone ~= nil or getfenv().test2 == false
+  game:GetService("ReplicatedStorage").Systems.Jobs.StartJob:InvokeServer(workspace.Jobs.Trucking, chosenone)
   repeat  wait()
      print("waiting for trailer")
   until game.Players.LocalPlayer.Character.Humanoid.SeatPart.Parent.Parent:FindFirstChild("Trailer") or getfenv().test2 == false
@@ -374,10 +336,10 @@ for i,v in pairs(car:GetDescendants()) do
   game:GetService("ReplicatedStorage").Systems.Jobs.QuitJob:InvokeServer()
   wait(task.wait())
   end
-  until getZone() or getfenv().test2 == false or failnum > 100
+  until game:GetService("Workspace"):FindFirstChild("CompletionRegion") or getfenv().test2 == false or failnum > 100
   wait()
-  if getZone() then
-   if (chosenone:GetAttribute("LocationCFrame").Position-getZone().PrimaryPart.Position).magnitude < getfenv().mdistance*3.571 then
+  if game:GetService("Workspace"):FindFirstChild("CompletionRegion") then
+   if (chosenone:GetAttribute("LocationCFrame").Position-game:GetService("Workspace").CompletionRegion.Primary.Position).magnitude < getfenv().mdistance*3.571 then
       game:GetService("ReplicatedStorage").Systems.Jobs.QuitJob:InvokeServer()
 task.wait()
    end
@@ -387,30 +349,27 @@ pcall(function()
    task.wait(1.5)
    game.Players.LocalPlayer.Character.Head.Anchored = false
    end)
-   if getZone() then
-      local dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-getZone().PrimaryPart.Position).magnitude
-      if tonumber(dist/400) > 7 then
+   if game:GetService("Workspace"):FindFirstChild("CompletionRegion") then
+      local dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position-game:GetService("Workspace").CompletionRegion.Primary.Position).magnitude
+      if tonumber(dist/500) > 7 then
          print("Delivery Distance:"..tonumber(dist/3.571).." meters away")
-      print("Delivery ETA:"..tonumber(dist/400).." seconds")
+      print("Delivery ETA:"..tonumber(dist/500).." seconds")
       if getfenv().methodt == "Teleport" then
-      task.wait(dist/400)
+      task.wait(dist/500)
       elseif getfenv().methodt == "Tweening" then
          for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
             if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-               v.Parent:PivotTo(v.Parent.PrimaryPart.CFrame+Vector3.new(0,500,0))
-               v.Parent.Trailer:PivotTo(v.Parent.PrimaryPart.CFrame*CFrame.new(0,500,100))
          local TweenService = game:GetService("TweenService")
-         local TweenInfoToUse = TweenInfo.new(dist/400, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
+         local TweenInfoToUse = TweenInfo.new(dist/500, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0)
          
          local TweenValue = Instance.new("CFrameValue")
          TweenValue.Value = v.Parent:GetPrimaryPartCFrame()
                   
          TweenValue.Changed:Connect(function()
-                  v.Parent:PivotTo(TweenValue.Value)
-      v.Parent.PrimaryPart.Velocity = Vector3.new(0,0,0)
+            v.Parent:SetPrimaryPartCFrame(TweenValue.Value)
          end)
                   
-         local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=getZone().PrimaryPart.CFrame*CFrame.new(0,500,100)})
+         local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=game:GetService("Workspace").CompletionRegion.Primary.CFrame})
          OnTween:Play()
           OnTween.Completed:Wait()
          end
@@ -424,22 +383,19 @@ pcall(function()
          elseif getfenv().methodt == "Tweening" then
             for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
                if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-                  v.Parent:PivotTo(v.Parent.PrimaryPart.CFrame+Vector3.new(0,500,0))
-                  v.Parent.Trailer:PivotTo(v.Parent.PrimaryPart.CFrame*CFrame.new(0,500,100))
-                  local TweenService = game:GetService("TweenService")
-                  local TweenInfoToUse = TweenInfo.new(7, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
-                  
-                  local TweenValue = Instance.new("CFrameValue")
-                  TweenValue.Value = v.Parent:GetPrimaryPartCFrame()
-                           
-                  TweenValue.Changed:Connect(function()
-                           v.Parent:PivotTo(TweenValue.Value)
-      v.Parent.PrimaryPart.Velocity = Vector3.new(0,0,0)
-                  end)
-                           
-                  local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=getZone().PrimaryPart.CFrame*CFrame.new(0,500,100)})
-                  OnTween:Play()
-                   OnTween.Completed:Wait()
+            local TweenService = game:GetService("TweenService")
+            local TweenInfoToUse = TweenInfo.new(7, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, 0, false, 0)
+            
+            local TweenValue = Instance.new("CFrameValue")
+            TweenValue.Value = v.Parent:GetPrimaryPartCFrame()
+                     
+            TweenValue.Changed:Connect(function()
+               v.Parent:SetPrimaryPartCFrame(TweenValue.Value)
+            end)
+                     
+            local OnTween = TweenService:Create(TweenValue, TweenInfoToUse, {Value=game:GetService("Workspace").CompletionRegion.Primary.CFrame})
+            OnTween:Play()
+             OnTween.Completed:Wait()
             end
             end
          end
@@ -448,25 +404,14 @@ pcall(function()
 elseif game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Jobs.Visible == true then
 for i,v in pairs(game:GetService("Workspace").Cars:GetDescendants()) do
    if v.Name == "Owner" and v.Value == game.Players.LocalPlayer then
-      v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,60))
-      v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,100))
-      wait(5)
 repeat task.wait()
    pcall(function()
-   v.Parent:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,-30))
-v.Parent.Trailer:PivotTo(getZone().PrimaryPart.CFrame*CFrame.new(0,5,0))
+   v.Parent:PivotTo(game:GetService("Workspace").CompletionRegion.Primary.CFrame*CFrame.new(0,5,-30))
+v.Parent.Trailer:PivotTo(game:GetService("Workspace").CompletionRegion.Primary.CFrame*CFrame.new(0,5,0))
    end)
     until not v.Parent:FindFirstChild("Trailer") or getfenv().test2 == false
 game:GetService("ReplicatedStorage").Systems.Jobs.CashBankedEarnings:FireServer()
 task.wait()
-local time = tick()
-repeat task.wait()
-until cash = game:GetService("ReplicatedStorage").PlayerData[plr.Name].Cash.Value or tick()-time > 5
-print(tick()-time)
-if cash == game:GetService("ReplicatedStorage").PlayerData[plr.Name].Cash.Value then
-   game:GetService("ReplicatedStorage").Systems.Jobs.QuitJob:InvokeServer()
-   wait(5)
-   end
 end
 end
 end
@@ -530,24 +475,11 @@ local example = library:CreateWindow({
 end)
  example:AddToggle("Auto Farm [Race XP]", function(state)
    getfenv().xprace = (state and true or false)
-   local function getrace()
-      local plr = game.Players.LocalPlayer
-      local data = game:GetService("ReplicatedStorage").PlayerData[plr.Name]
-      local race = nil
-      for i,v in pairs(data.Tasks.Challenges.List:GetChildren()) do
-      if v.ClassName == "Folder" and v:GetAttribute("AvailableTime") = nil and v:GetAttribute("AvailableTime")-workspace:GetServerTimeNow() <= 0 and v:GetAttribute("ExpireTime")-workspace:GetServerTimeNow() > 0 then
-         local time = v:GetAttribute("AvailableTime")-workspace:GetServerTimeNow()
-      local expire = v:GetAttribute("ExpireTime")-workspace:GetServerTimeNow()
-      race = v.Name
-      end
-      end
-      return race
-      end
    spawn(function()
 while getfenv().xprace do
 task.wait()
-if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Race.Visible == true and getfenv().lookat = nil then
-local speed = getfenv().speed or 250
+if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Race.Visible == true and getfenv().lookat ~= nil then
+local speed = getfenv().speed or 500
 
 local plr = game.Players.LocalPlayer
 local chr = plr.Character
@@ -559,7 +491,7 @@ end
    end)
    while getfenv().xprace do
       wait()
-game:GetService("ReplicatedStorage").Systems.Races.StartTaskChallengeRace:FireServer("GoldRushCrown")
+game:GetService("ReplicatedStorage").Systems.Races.StartTaskChallengeRace:FireServer("soloAroundTheWorld")  
  repeat wait()
    until game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Race.Visible == true or getfenv().xprace == false
    local plr = game.Players.LocalPlayer
@@ -569,8 +501,8 @@ game:GetService("ReplicatedStorage").Systems.Races.StartTaskChallengeRace:FireSe
    repeat task.wait()
       local test = nil
       for i,v in pairs(workspace.Races:GetDescendants()) do
-         if v.ClassName == "Model"  and v:FindFirstChild("Forcefield") and v:FindFirstChild("Forcefield").Transparency = 1  then
-            local speed = getfenv().speed or 250
+         if v.ClassName == "Model"  and v:FindFirstChild("Forcefield") and v:FindFirstChild("Forcefield").Transparency ~= 1  then
+            local speed = getfenv().speed or 500
             getfenv().lookat = v:FindFirstChild("Forcefield")
             local plr = game.Players.LocalPlayer
             local chr = plr.Character
@@ -602,8 +534,8 @@ example:AddToggle("Auto Finish Race", function(state)
    spawn(function()
       while getfenv().urace do
       task.wait()
-      if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Race.Visible == true and getfenv().lookat = nil then
-      local speed = getfenv().speed or 250
+      if game:GetService("Players").LocalPlayer.PlayerGui.Score.Frame.Race.Visible == true and getfenv().lookat ~= nil then
+      local speed = getfenv().speed or 500
       
       local plr = game.Players.LocalPlayer
       local chr = plr.Character
@@ -624,9 +556,9 @@ example:AddToggle("Auto Finish Race", function(state)
    repeat task.wait()
       local test = nil
    for i,v in pairs(workspace.Races:GetDescendants()) do
-      if v.ClassName == "Model"  and v:FindFirstChild("Forcefield") and v:FindFirstChild("Forcefield").Transparency = 1  then
+      if v.ClassName == "Model"  and v:FindFirstChild("Forcefield") and v:FindFirstChild("Forcefield").Transparency ~= 1  then
          getfenv().lookat = v:FindFirstChild("Forcefield")
-         local speed = getfenv().speed or 250
+         local speed = getfenv().speed or 500
          local plr = game.Players.LocalPlayer
          local chr = plr.Character
          local car = chr.Humanoid.SeatPart.Parent.Parent
@@ -636,9 +568,10 @@ example:AddToggle("Auto Finish Race", function(state)
          print(dist/speed)
          local TweenService = game:GetService("TweenService")
          local TweenInfoToUse = TweenInfo.new(dist/speed, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut, 0, false, 0)
-
+         
          local TweenValue = Instance.new("CFrameValue")
          TweenValue.Value = car:GetPrimaryPartCFrame()
+                 
          TweenValue.Changed:Connect(function()
          car:PivotTo(TweenValue.Value)
          end)
