@@ -1,23 +1,33 @@
-warn("Anti afk running")
-game:GetService("Players").LocalPlayer.Idled:connect(function()
-warn("Anti afk ran")
-game:GetService("VirtualUser"):CaptureController()
-game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+-- Anti AFK
+pcall(function()
+    warn("Anti afk running")
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        warn("Anti afk ran")
+        game:GetService("VirtualUser"):CaptureController()
+        game:GetService("VirtualUser"):ClickButton2(Vector2.new())
+    end)
 end)
-if getrawmetatable ~= nil then
-local mt = getrawmetatable(game);
-setreadonly(mt,false)
-local namecall = mt.__namecall
-mt.__namecall = newcclosure(function(self, ...)
-	local Method = getnamecallmethod()
-	local Args = {...}
 
-	if Method == 'FireServer' and self.Name == "TrackOffroadTimer" or Method == 'FireServer' and self.Name == "Report" or Method == 'InvokeServer' and self.Name == "QuitJob" and Args[1] == true or Method == 'InvokeServer' and self.Name == "QuitJob" and Args[1] == "teleport" then
-return;
-	end
-	return namecall(self, ...) 
+-- Hook setup with error handling
+pcall(function()
+    if getrawmetatable and setreadonly and newcclosure and getnamecallmethod then
+        local mt = getrawmetatable(game);
+        setreadonly(mt,false)
+        local namecall = mt.__namecall
+        mt.__namecall = newcclosure(function(self, ...)
+            local Method = getnamecallmethod()
+            local Args = {...}
+
+            if Method == 'FireServer' and self.Name == "TrackOffroadTimer" or Method == 'FireServer' and self.Name == "Report" or Method == 'InvokeServer' and self.Name == "QuitJob" and Args[1] == true or Method == 'InvokeServer' and self.Name == "QuitJob" and Args[1] == "teleport" then
+                return;
+            end
+            return namecall(self, ...) 
+        end)
+        print("Hook setup successful")
+    else
+        warn("Some hook functions not available - continuing without hooks")
+    end
 end)
-end
 
 -- Tween Configuration Variables
 getfenv().tweenSpeed = 300 -- Default tween speed
@@ -139,10 +149,27 @@ local function getJob(type,type2)
       return zone
       end
 getfenv().grav = workspace.Gravity
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/main/ui%20libs2"))()
-local example = library:CreateWindow({
-  text = "Drive World"
-})
+
+-- Load UI library with error handling
+local library, example
+pcall(function()
+    library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Marco8642/science/main/ui%20libs2"))()
+    if library then
+        example = library:CreateWindow({
+            text = "Drive World"
+        })
+        print("UI library loaded successfully")
+    else
+        error("Failed to load UI library")
+    end
+end)
+
+-- Check if UI loaded successfully before proceeding
+if not example then
+    error("UI library failed to load - please check your executor and internet connection")
+    return
+end
+
 example:AddToggle("Auto Farm [Drive]", function(state)
    getfenv().drive = (state and true or false)
    while getfenv().drive do
