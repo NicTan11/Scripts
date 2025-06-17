@@ -42,7 +42,7 @@ example:AddToggle("Auto Farm [Drive]", function(state)
     local car = chr.Humanoid.SeatPart.Parent.Parent
     local carp = car.PrimaryPart
     car:PivotTo(workspace:FindFirstChild("carautopart").CFrame+Vector3.new(0,5,0))
-    task.wait(8)
+    task.wait(6)
     carp.Velocity = carp.CFrame.LookVector*600
     end
     end)
