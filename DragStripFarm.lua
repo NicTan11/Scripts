@@ -25,6 +25,13 @@ local RACES = {
 		raceStart  = Vector3.new(1706.744, 61.644, -1018.918),
 		raceFinish = Vector3.new(2078.106, 61.644, -491.13),
 	},
+	{
+		name       = "3/4 Mile City Drag",
+		stripName  = "DragStripThreeQuarterMileCity",
+		queueCFrame = CFrame.new(-648.221, 0.764, -220.902),
+		raceStart  = Vector3.new(-768.189, 43.576, 603.5),
+		raceFinish = Vector3.new(-768.389, 61.836, 2407.505),
+	},
 }
 
 local selectedRace = RACES[1]
